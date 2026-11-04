@@ -1,6 +1,6 @@
 # Handoff
 
-## 2026-11-05 — 0.1.0 verified local candidate
+## 2026-11-05 — 0.1.0 PUBLISHED import/diagnostic preview
 Owner requests an Android WPK/LPK viewer with Spine and Live2D playback eventually, publishing every completed code version to a public GitHub repository with a phone-downloadable APK.
 
 Recovered existing environment from the owner's Android player chat/project: account liuchengzhiaa, Redmi/Android15/ARM64, SDK on F:, local build + normal authenticated GitHub CLI. Connector login is a different account and must not be used accidentally. CLI keyring authentication works outside the restricted sandbox; a sandbox auth failure alone does NOT prove expired login. Existing OAuth scope lacks workflow: no Actions pipeline has been pushed or claimed.
@@ -15,6 +15,14 @@ Real-package host probe uses the app's actual Java parser and org.json under -Xm
 
 First full verification run found a read-grant Lint error; fixed rather than baselined. A nested JSON complexity guard and cancellation-on-rotation fix were then added and final tests/build rerun successfully. No stale initial APK is being published.
 
-Pending: source push, prerelease publication and independent public asset digest readback. The checked-in guarded publisher reruns tests/Lint/build against a clean committed checkout and refuses changed signer/destination, duplicate tags or dirty source. No APK has yet been published.
+Published PUBLIC prerelease ID 434171873 at 2026-11-04T16:35:58Z, draft=false/prerelease=true. Exact APK/code tag v0.1.0 targets 3a34d1d7778cfe74564852d43e6d808c88722646; the follow-up publisher/receipt commit does not rebuild or move that tag. APK 2604622 bytes, SHA256 c168b0f21a955e658daefa6f8145e668321c5a9b542ca3ae8f6941c8c26cbbc9.
+Release: https://github.com/liuchengzhiaa/JOKEVIEWER/releases/tag/v0.1.0
+APK: https://github.com/liuchengzhiaa/JOKEVIEWER/releases/download/v0.1.0/JOKEVIEWER.apk
+
+Anonymous public API readback verified each of the three asset sizes and SHA256 digests against local files; full APK download was not repeated. No device UI test.
+
+The initial publisher pushed source/tag and uploaded all three draft assets, then /releases/tags returned 404 for that DRAFT. Inspected the existing release list and assets without overwriting, verified the immutable remote tag and all digests, then published draft ID 434171873 by ID. Updated the publisher to discover drafts from the release list and set an explicit commit target. This delivery-tool-only fix and receipt are a normal follow-up source commit, not a different APK version.
+
+Next: owner phone acceptance of importing original WPK (rather than isolated STM LPK), static cover, model/config list and cancellation; resolve SDK licensing before implementing/distributing animation runtimes. Don't describe this preview as a working animation viewer.
 
 Local machine settings, cache, generated source package list, signing material and reports remain in .local/ (ignored). Do not upload model packages, user filenames or paths. Android UI has not been tested on a device; do not claim it has.

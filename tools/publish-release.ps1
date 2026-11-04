@@ -117,8 +117,12 @@ try {
     if (($remote -split '\s+')[0] -ne $commit) { throw 'Remote branch does not match the verified commit' }
     Invoke-Git tag $tag $commit
     Invoke-Git push origin "refs/tags/$tag" | Out-Host
-    Invoke-Gh release create $tag $asset (Join-Path $out 'SHA256SUMS.txt') (Join-Path $out 'JOKEVIEWER-build.json') --repo $Repo --verify-tag --title "JOKEVIEWER $version" --notes-file (Join-Path $out 'release-notes.md') --draft --prerelease | Out-Host
-    $release = (Invoke-Gh api "repos/$Repo/releases/tags/$tag") | ConvertFrom-Json
+    Invoke-Gh release create $tag $asset (Join-Path $out 'SHA256SUMS.txt') (Join-Path $out 'JOKEVIEWER-build.json') --repo $Repo --verify-tag --target $commit --title "JOKEVIEWER $version" --notes-file (Join-Path $out 'release-notes.md') --draft --prerelease | Out-Host
+    # Draft releases may not be addressable through /releases/tags yet.
+    $drafts = (Invoke-Gh api "repos/$Repo/releases?per_page=100") | ConvertFrom-Json
+    $matchingDrafts = @($drafts | Where-Object tag_name -EQ $tag)
+    if ($matchingDrafts.Count -ne 1) { throw "Unique draft release not found; inspect before retrying" }
+    $release = $matchingDrafts[0]
     foreach ($file in @($asset, (Join-Path $out 'SHA256SUMS.txt'), (Join-Path $out 'JOKEVIEWER-build.json'))) {
         $local = Get-Item -LiteralPath $file
         $remoteAsset = @($release.assets | Where-Object name -EQ $local.Name)
