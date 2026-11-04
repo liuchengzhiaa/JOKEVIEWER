@@ -1,0 +1,13 @@
+<resources>
+<string name="app_name">JOKEVIEWER</string><string name="subtitle">本地模型包 · 导入诊断预览</string><string name="version">0.1.0 · Android 10+</string><string name="scope">本版可读取 WPK / LPK、识别模型与配置动作，并显示包封面。暂不含 Spine / Live2D 动态播放；不执行包内指令。</string><string name="open">选择 WPK / LPK 文件</string><string name="cancel">取消当前导入</string><string name="empty">从系统文件选择器导入模型包。文件只读，不申请所有文件权限，不上传模型。</string><string name="working">正在读取与检查，请稍候…</string><string name="cancelled">已取消，原文件没有变化。</string><string name="failed">导入失败：%1$s</string><string name="complete">导入完成 · %1$d 个模型配置</string><string name="no_cover">此包没有可用的封面预览</string><string name="static_cover">包封面（静态图片，非模型播放画面）</string><string name="models">模型配置</string><string name="details">包诊断</string><string name="detail_template">容器：%1$s
+内部格式：%2$s
+资源数：%3$d
+已识别配置：%4$d
+
+%5$s</string><string name="model_template">%1$s
+引擎：%2$s
+配置动作：%3$d
+被引用资源：%4$d / %5$d 可找到
+
+%6$s</string><string name="warnings">注意：%1$s</string><string name="engine_pending">渲染运行库尚未接入，此版本不会播放模型、菜单、物理或音频。</string><string name="unknown_error">未知错误</string>
+</resources>
